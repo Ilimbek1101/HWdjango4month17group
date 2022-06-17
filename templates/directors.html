@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Director's List</title>
 </head>
 <body>
-$END$
+<h1>All Director's List</h1>
+{% for director in director_list %}
+    <a href="/directors/{{ director.id }}/">Name of Director: {{ director.name }}</a>
+    <hr/>
+{% endfor %}
 </body>
 </html>

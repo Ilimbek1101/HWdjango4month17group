@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Review List</title>
 </head>
 <body>
-$END$
+<h1>All Review List</h1>
+{% for review in review_list %}
+    <a href="/reviews/{{ review.id }}">Review: {{ review.text }}</a>
+    <hr/>
+{% endfor %}
 </body>
 </html>
