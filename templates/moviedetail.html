@@ -10,6 +10,12 @@
 </a>
 <h2>Title: {{ movie_detail.title }}</h2>
 <p>Description: {{ movie_detail.description }}</p>
+<p>Director: {{ movie_detail.director }}</p>
+<p>Reviews: </p>
+{% for review in review_list %}
+    <a href="/reviews/{{ review.id }}">{{ review.text }}</a>
+    <hr/>
+{% endfor %}
 <hr/>
 </body>
 </html>

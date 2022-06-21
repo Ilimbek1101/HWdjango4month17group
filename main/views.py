@@ -75,12 +75,18 @@ def director_list_view(request):
 def movie_list_view(request):
     movies = Movie.objects.all()
     print(movies)
-    return render(request, 'movies.html', context={'movie_list': movies})
+    return render(request, 'movies.html', context={
+        'movie_list': movies,
+        'director_list': Director.objects.all()
+    })
 
 
 def review_list_view(request):
     print(Review.objects.all())
-    return render(request, 'reviews.html', context={'review_list': Review.objects.all()})
+    return render(request, 'reviews.html', context={
+        'review_list': Review.objects.all(),
+        'movie_list': Movie.objects.all()
+    })
 
 
 def director_detail_view(request, id):
@@ -90,9 +96,25 @@ def director_detail_view(request, id):
 
 def movie_detail_view(request, id):
     movie = Movie.objects.get(id=id)
-    return render(request, 'moviedetail.html', context={'movie_detail': movie})
+    review = Review.objects.get(id=id)
+    return render(request, 'moviedetail.html', context={'movie_detail': movie,
+                                                        'review_list': Review.objects.filter(movie_id=id)})
 
 
 def review_detail_view(request, id):
     review = Review.objects.get(id=id)
     return render(request, 'reviewdetail.html', context={'review_detail': review})
+
+def director_movie_filter_view(request, director_id):
+    context = {
+        'movie_list': Movie.objects.filter(director_id=director_id),
+        'director_list': Director.objects.all()
+    }
+    return render(request, 'movies.html', context=context)
+
+def movie_review_filter_view(request, movie_id):
+    context = {
+        'review_list': Review.objects.filter(movie_id=movie_id),
+        'movie_list': Movie.objects.all()
+    }
+    return render(request, 'reviews.html', context=context)

@@ -5,10 +5,15 @@
     <title>Movie List</title>
 </head>
 <body>
-<h1>All Movie List</h1>
+<a href="/movies/"><button>Все фильмы</button></a>
+{% for director in director_list %}
+    <a href="/director/{{ director.id }}/movies/"><button>{{ director.name }}</button></a>
+{% endfor %}
+<h1>Movie List</h1>
 {% for movie in movie_list %}
     <a href="/movies/{{ movie.id }}/">Title: {{ movie.title }}</a>
     <p>Description: {{ movie.description }}</p>
+    <p>Director: {{ movie.director.name }}</p>
     <hr/>
 {% endfor %}
 </body>

@@ -11,6 +11,8 @@ class Director(models.Model):
 
 
 class Movie(models.Model):
+    director = models.ForeignKey(Director, on_delete=models.CASCADE,
+                                 null=True)
     title = models.CharField(max_length=1000)
     description = models.TextField(blank=True)
 
@@ -19,7 +21,9 @@ class Movie(models.Model):
 
 
 class Review(models.Model):
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE,
+                              null=True)
     text = models.TextField()
 
     def __str__(self):
-        return self.text[0:40]
+        return self.text
