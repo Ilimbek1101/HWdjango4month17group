@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from main import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +31,8 @@ urlpatterns = [
     path('reviews/', views.review_list_view),
     path('reviews/<int:id>/', views.review_detail_view),
     path('director/<int:director_id>/movies/', views.director_movie_filter_view),
-    path('movie/<int:movie_id>/reviews/', views.movie_review_filter_view)
+    path('movie/<int:movie_id>/reviews/', views.movie_review_filter_view),
+
 ]
+
+urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

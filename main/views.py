@@ -98,6 +98,7 @@ def movie_detail_view(request, id):
     movie = Movie.objects.get(id=id)
     review = Review.objects.get(id=id)
     return render(request, 'moviedetail.html', context={'movie_detail': movie,
+                                                        'director_list': Director.objects.all(),
                                                         'review_list': Review.objects.filter(movie_id=id)})
 
 
