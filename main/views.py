@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import datetime
 from .models import Director, Movie, Review
+from main.forms import DirectorForm, MovieForm
 
 # Create your views here.
 
@@ -106,6 +107,7 @@ def review_detail_view(request, id):
     review = Review.objects.get(id=id)
     return render(request, 'reviewdetail.html', context={'review_detail': review})
 
+
 def director_movie_filter_view(request, director_id):
     context = {
         'movie_list': Movie.objects.filter(director_id=director_id),
@@ -113,9 +115,37 @@ def director_movie_filter_view(request, director_id):
     }
     return render(request, 'movies.html', context=context)
 
+
 def movie_review_filter_view(request, movie_id):
     context = {
         'review_list': Review.objects.filter(movie_id=movie_id),
         'movie_list': Movie.objects.all()
     }
     return render(request, 'reviews.html', context=context)
+
+
+def add_director_view(request):
+    form = DirectorForm()
+    if request.method == 'POST':
+        form = DirectorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/directors/')
+    return render(request, 'add_director.html', context={
+        'form': form,
+        'director_list': Director.objects.all()
+    })
+
+
+def add_movie_view(request):
+    form = MovieForm()
+    if request.method == 'POST':
+        form = MovieForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/movies/')
+    return render(request, 'add_movie.html', context={
+        'form': form,
+        'director_list': Director.objects.all()
+    })
+

@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h3 style="padding-left: 300px">Ввод имени режиссера</h3>
+    <form action="/add_director/" method="post" style="padding-left: 200px; padding-right: 300px">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="Отправить данные">
+    </form>
+{% endblock %}
