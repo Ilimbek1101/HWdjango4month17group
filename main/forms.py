@@ -1,5 +1,9 @@
 from django import forms
+from django.core.exceptions import ValidationError
+
 from main.models import Director, Movie
+from django.contrib.auth.models import User
+
 
 class DirectorForm(forms.ModelForm):
     class Meta:
@@ -29,3 +33,41 @@ class MovieForm(forms.ModelForm):
                 'class': 'form-control'
             })
         }
+
+
+class RegisterForm(forms.Form):
+    username = forms.CharField()
+    email = forms.EmailField()
+    password = forms.CharField()
+    password1 = forms.CharField()
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        users = User.objects.filter(username=username)
+        if users:
+            raise ValidationError('User already exists')
+        return username
+
+    def clean_password1(self):
+        password = self.cleaned_data['password']
+        password1 = self.cleaned_data['password1']
+        if password != password1:
+            raise ValidationError('Password not match')
+        return password
+
+    def save(self):
+        """ Create User """
+        username = self.cleaned_data['username']
+        email = self.cleaned_data['email']
+        password = self.cleaned_data['password']
+        user = User.objects.create_user(username=username, email=email, password=password)
+        return user
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    email = forms.EmailField()
+    password = forms.CharField()
+
+
+
+

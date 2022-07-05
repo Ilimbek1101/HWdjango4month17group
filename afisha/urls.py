@@ -33,7 +33,9 @@ urlpatterns = [
     path('director/<int:director_id>/movies/', views.director_movie_filter_view),
     path('movie/<int:movie_id>/reviews/', views.movie_review_filter_view),
     path('add_director/', views.add_director_view),
-    path('add_movie/', views.add_movie_view)
+    path('add_movie/', views.add_movie_view),
+    path('register/', views.register_view),
+    path('login/', views.login_view),
 
 ]
 
