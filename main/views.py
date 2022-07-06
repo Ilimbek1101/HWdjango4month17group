@@ -67,6 +67,7 @@ def presenttime(request):
 
 
 def director_list_view(request):
+    print(request.user)
     directors = Director.objects.all()
     context = {
         'director_list': directors
@@ -170,6 +171,7 @@ def login_view(request):
         form = LoginForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
+            # email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             user = authenticate(username=username, password=password)
             if user:

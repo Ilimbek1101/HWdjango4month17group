@@ -36,10 +36,18 @@ class MovieForm(forms.ModelForm):
 
 
 class RegisterForm(forms.Form):
-    username = forms.CharField()
-    email = forms.EmailField()
-    password = forms.CharField()
-    password1 = forms.CharField()
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control'
+    }))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={
+        'class': 'form-control'
+    }))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': 'form-control'
+    }))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': 'form-control'
+    }))
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -52,7 +60,7 @@ class RegisterForm(forms.Form):
         password = self.cleaned_data['password']
         password1 = self.cleaned_data['password1']
         if password != password1:
-            raise ValidationError('Password not match')
+            raise ValidationError('Passwords not match')
         return password
 
     def save(self):
@@ -64,9 +72,16 @@ class RegisterForm(forms.Form):
         return user
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
-    email = forms.EmailField()
-    password = forms.CharField()
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control'
+    }))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={
+        'class': 'form-control'
+    }))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': 'form-control'
+    }))
+
 
 
 
