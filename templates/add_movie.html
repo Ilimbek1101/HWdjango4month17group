@@ -2,6 +2,7 @@
 
 {% block content %}
     <h3 style="padding-left: 300px">Ввод информации по фильму</h3>
+
     <form action="/add_movie/" method="post" style="padding-left: 150px; padding-right: 250px">
         {% csrf_token %}
         {{ form.as_p }}
