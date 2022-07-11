@@ -81,30 +81,6 @@ class ContextData(object):
 class DirectorListView(ContextData, ListView):
     queryset = Director.objects.all()
     template_name = 'directors.html'
-    # context_object_name = 'director_list'
-
-
-#     return context
-#     # queryset = Director.objects.all()
-#     # template_name = 'directors.html'
-#     # context_object_name = 'movie_list'
-
-# def director_list_view(request):
-#     print(request.user)
-#     directors = Director.objects.all()
-#     context = {
-#         'director_list': directors
-#     }
-#     print(directors)
-#     return render(request, 'directors.html', context=context)
-
-# def movie_list_view(request):
-#     movies = Movie.objects.all()
-#     print(movies)
-#     return render(request, 'movies.html', context={
-#         'movie_list': movies,
-#         'director_list': Director.objects.all()
-#     })
 
 
 class MovieListView(ContextData, ListView):
@@ -119,32 +95,10 @@ class ReviewListView(ContextData, ListView):
     context_object_name = 'review_list'
 
 
-
-# def review_list_view(request):
-#     print(Review.objects.all())
-#     return render(request, 'reviews.html', context={
-#         'review_list': Review.objects.all(),
-#         'movie_list': Movie.objects.all()
-#     })
-
-
-
 class DirectorDetailView(ContextData, DetailView):
     model = Director
     template_name = 'directordetail.html'
     context_object_name = 'director_detail'
-
-# def director_detail_view(request, id):
-#     director = Director.objects.get(id=id)
-#     return render(request, 'directordetail.html', context={'director_detail': director})
-
-
-# def movie_detail_view(request, id):
-#     movie = Movie.objects.get(id=id)
-#     review = Review.objects.get(id=id)
-#     return render(request, 'moviedetail.html', context={'movie_detail': movie,
-#                                                         'director_list': Director.objects.all(),
-#                                                         'review_list': Review.objects.filter(movie_id=id)})
 
 
 class MovieDetailView(ContextData, DetailView):
@@ -164,21 +118,6 @@ class ReviewDetailView(ContextData, DetailView):
     context_object_name = 'review_detail'
 
 
-
-# def review_detail_view(request, id):
-#     print(request.user)
-#     review = Review.objects.get(id=id)
-#     return render(request, 'reviewdetail.html', context={'review_detail': review})
-
-
-def director_movie_filter_view(request, director_id):
-    context = {
-        'movie_list': Movie.objects.filter(director_id=director_id),
-        'director_list': Director.objects.all()
-    }
-    return render(request, 'movies.html', context=context)
-
-
 class DirectorMovieFilterView(ContextData, ListView):
     queryset = Movie.objects.all()
     template_name = 'movies.html'
@@ -196,12 +135,6 @@ class MovieReviewFilterView(ContextData, ListView):
     def get_queryset(self):
         return Review.objects.filter(movie=self.request.resolver_match.kwargs['movie_id'])
 
-# def movie_review_filter_view(request, movie_id):
-#     context = {
-#         'review_list': Review.objects.filter(movie_id=movie_id),
-#         'movie_list': Movie.objects.all()
-#     }
-#     return render(request, 'reviews.html', context=context)
 
 class AddDirectorFormView(ContextData, FormView):
     form_class = DirectorForm
@@ -212,17 +145,6 @@ class AddDirectorFormView(ContextData, FormView):
         form.save()
         return super().form_valid(form)
 
-# def add_director_view(request):
-#     form = DirectorForm()
-#     if request.method == 'POST':
-#         form = DirectorForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('/directors/')
-#     return render(request, 'add_director.html', context={
-#         'form': form,
-#         'director_list': Director.objects.all()
-#     })
 
 class AddMovieFormView(ContextData, FormView):
     form_class = MovieForm
@@ -232,18 +154,6 @@ class AddMovieFormView(ContextData, FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-
-# def add_movie_view(request):
-#     form = MovieForm()
-#     if request.method == 'POST':
-#         form = MovieForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('/movies/')
-#     return render(request, 'add_movie.html', context={
-#         'form': form,
-#         'director_list': Director.objects.all()
-#     })
 
 
 class RegisterFormView(FormView):
@@ -255,16 +165,6 @@ class RegisterFormView(FormView):
         form.save()
         return super().form_valid(form)
 
-# def register_view(request):
-#     form = RegisterForm()
-#     if request.method == 'POST':
-#         form = RegisterForm(data=request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('/register/', )
-#     return render(request, 'register.html', context={
-#         'form': form
-#     })
 
 class LoginFormView(FormView):
     form_class = LoginForm
@@ -280,21 +180,6 @@ class LoginFormView(FormView):
             login(self.request, user=user)
         return super().form_valid(form)
 
-# def login_view(request):
-#     form = LoginForm()
-#     if request.method == 'POST':
-#         form = LoginForm(data=request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             # email = form.cleaned_data['email']
-#             password = form.cleaned_data['password']
-#             user = authenticate(username=username, password=password)
-#             if user:
-#                 login(request, user=user)
-#             return redirect('/login/')
-#     return render(request, 'login.html', context={
-#         'form': form
-#     })
 
 class LogoutView(View):
     def get(self, request):
