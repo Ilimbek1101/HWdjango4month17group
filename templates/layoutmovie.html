@@ -27,6 +27,18 @@
         <li class="nav-item">
             <a class="nav-link" href="/add_movie/">Ввод информации по фильму</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/register/">Регистрация</a>
+        </li>
+        {% if user.is_anonymous %}
+            <li class="nav-item">
+              <a class="nav-link" href="/login/">Авторизация</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout/">Выйти ({{ user.username }})</a>
+            </li>
+        {% endif %}
       </ul>
     </div>
   </div>

@@ -21,21 +21,22 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('about/', views.index),
-    path('structure/', views.structure),
-    path('today/', views.presenttime),
-    path('directors/', views.director_list_view),
-    path('directors/<int:id>/', views.director_detail_view),
-    path('movies/', views.movie_list_view),
-    path('movies/<int:id>/', views.movie_detail_view),
-    path('reviews/', views.review_list_view),
-    path('reviews/<int:id>/', views.review_detail_view),
-    path('director/<int:director_id>/movies/', views.director_movie_filter_view),
-    path('movie/<int:movie_id>/reviews/', views.movie_review_filter_view),
-    path('add_director/', views.add_director_view),
-    path('add_movie/', views.add_movie_view),
-    path('register/', views.register_view),
-    path('login/', views.login_view),
+    path('about/', views.IndexView.as_view()),
+    path('structure/', views.StrucView.as_view()),
+    path('today/', views.TimeView.as_view()),
+    path('directors/', views.DirectorListView.as_view()),
+    path('directors/<int:pk>/', views.DirectorDetailView.as_view()),
+    path('movies/', views.MovieListView.as_view()),
+    path('movies/<int:pk>/', views.MovieDetailView.as_view()),
+    path('reviews/', views.ReviewListView.as_view()),
+    path('reviews/<int:pk>/', views.ReviewDetailView.as_view()),
+    path('director/<int:director_id>/movies/', views.DirectorMovieFilterView.as_view()),
+    path('movie/<int:movie_id>/reviews/', views.MovieReviewFilterView.as_view()),
+    path('add_director/', views.AddDirectorFormView.as_view()),
+    path('add_movie/', views.AddMovieFormView.as_view()),
+    path('register/', views.RegisterFormView.as_view()),
+    path('login/', views.LoginFormView.as_view()),
+    path('logout/', views.LogoutView.as_view())
 
 ]
 

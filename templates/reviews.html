@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Review List</title>
-</head>
-<body>
-{% for movie in movie_list %}
-    <a href="/movie/{{ movie.id }}/reviews/"><button>{{ movie.title }}</button></a>
-{% endfor %}
-<h1>All Review List</h1>
-{% for review in review_list %}
-    <a href="/reviews/{{ review.id }}">Review: {{ review.text }}</a>
-    <p>Movie: {{ review.movie.title }}</p>
-    <hr/>
-{% endfor %}
-</body>
-</html>
+{% extends 'layoutmovie.html' %}
+
+{% block content %}
+
+    {% for movie in movie_list %}
+        <a href="/movie/{{ movie.id }}/reviews/"><button>{{ movie.title }}</button></a>
+    {% endfor %}
+    <h1>All Review List</h1>
+    {% for review in review_list %}
+        <a href="/reviews/{{ review.id }}">Review: {{ review.text }}</a>
+        <p>Movie: {{ review.movie.title }}</p>
+        <hr/>
+    {% endfor %}
+
+{% endblock %}
